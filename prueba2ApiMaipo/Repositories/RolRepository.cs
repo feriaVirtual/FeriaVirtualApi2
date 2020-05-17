@@ -29,7 +29,7 @@ namespace prueba2ApiMaipo.Repositories
 
 
                 ///son los campos que tiene el sp ////ojo con el tipo de dato del sp y con el que envio
-                dyParam.Add("r_id", OracleDbType.Int32, ParameterDirection.Input, id);
+                dyParam.Add("rl_rol_id", OracleDbType.Int32, ParameterDirection.Input, id);
                
                 var conn = this.GetConnection();
                 if (conn.State == ConnectionState.Closed)
@@ -62,9 +62,10 @@ namespace prueba2ApiMaipo.Repositories
 
 
                 ///son los campos que tiene el sp ////ojo con el tipo de dato del sp y con el que envio
-                dyParam.Add("r_id", OracleDbType.Int32, ParameterDirection.Input, id);
-                dyParam.Add("r_nombre", OracleDbType.Varchar2, ParameterDirection.Input, rol.rol_nombre);
-                dyParam.Add("r_activo", OracleDbType.Int32, ParameterDirection.Input, rol.rol_activo);
+                dyParam.Add("rl_rol_id", OracleDbType.Int32, ParameterDirection.Input, id);
+                dyParam.Add("rl_rol_nombre", OracleDbType.Varchar2, ParameterDirection.Input, rol.rol_nombre);
+                dyParam.Add("rl_rol_activo", OracleDbType.Int32, ParameterDirection.Input, rol.rol_activo);
+                
 
                 var conn = this.GetConnection();
                 if (conn.State == ConnectionState.Closed)
@@ -74,7 +75,7 @@ namespace prueba2ApiMaipo.Repositories
 
                 if (conn.State == ConnectionState.Open)
                 {
-                    var query = "SP_EDIT_ROL";
+                    var query = "SP_UPDATE_ROL";
 
                     result = SqlMapper.Query(conn, query, param: dyParam, commandType: CommandType.StoredProcedure);
                 }
@@ -121,13 +122,14 @@ namespace prueba2ApiMaipo.Repositories
         public object InsertRol(Rol rol)
         {
             object result = null;
+            //Console.WriteLine(rol);
 
             try
             {
                 var dyParam = new OracleDynamicParameters();
 
-                dyParam.Add("r_nombre", OracleDbType.Varchar2, ParameterDirection.Input, rol.rol_nombre);
-                dyParam.Add("r_activo", OracleDbType.Int32, ParameterDirection.Input, rol.rol_activo);
+                dyParam.Add("rl_rol_nombre", OracleDbType.Varchar2, ParameterDirection.Input, rol.rol_nombre);
+                dyParam.Add("rl_rol_activo", OracleDbType.Int32, ParameterDirection.Input, rol.rol_activo);
 
                 var conn = this.GetConnection();
                 if (conn.State == ConnectionState.Closed)
